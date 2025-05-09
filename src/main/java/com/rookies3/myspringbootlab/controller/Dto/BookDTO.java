@@ -68,7 +68,8 @@ public class BookDTO {
         private String isbn;
         private Integer price;
         private LocalDate publishDate;
-        
+
+        //Book => BookResponse
         public static BookResponse from(Book book) {
             return new BookResponse(
                 book.getId(),
