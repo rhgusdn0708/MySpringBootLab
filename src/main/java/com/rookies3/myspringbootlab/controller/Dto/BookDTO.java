@@ -3,82 +3,90 @@ package com.rookies3.myspringbootlab.controller.Dto;
 import com.rookies3.myspringbootlab.entity.Book;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import java.time.LocalDate;
 
 public class BookDTO {
 
-    @Getter
-    @Setter
-    @NoArgsConstructor
-    @AllArgsConstructor
+    // 📌 Book 생성 요청용 DTO
     public static class BookCreateRequest {
-        @NotBlank(message = "제목은 필수 입력 항목입니다.")
+        @NotBlank
         private String title;
-        
-        @NotBlank(message = "저자는 필수 입력 항목입니다.")
+        @NotBlank
         private String author;
-        
-        @NotBlank(message = "ISBN은 필수 입력 항목입니다.")
-        private String isbn;
-        
-        @Positive(message = "가격은 양수여야 합니다.")
+        @NotNull
         private Integer price;
-        
+        @NotNull
         private LocalDate publishDate;
-        
-        public Book toEntity() {
-            Book book = new Book();
-            book.setTitle(this.title);
-            book.setAuthor(this.author);
-            book.setIsbn(this.isbn);
-            book.setPrice(this.price);
-            book.setPublishDate(this.publishDate);
-            return book;
+
+        // 생성자
+        public BookCreateRequest(String title, String author, Integer price, LocalDate publishDate) {
+            this.title = title;
+            this.author = author;
+            this.price = price;
+            this.publishDate = publishDate;
         }
+
+        // 기본 생성자 (직렬화/역직렬화를 위해 필요할 수 있음)
+        public BookCreateRequest() {}
+
+        // Getter
+        public String getTitle() { return title; }
+        public String getAuthor() { return author; }
+        public Integer getPrice() { return price; }
+        public LocalDate getPublishDate() { return publishDate; }
+
+        // Setter
+        public void setTitle(String title) { this.title = title; }
+        public void setAuthor(String author) { this.author = author; }
+        public void setPrice(Integer price) { this.price = price; }
+        public void setPublishDate(LocalDate publishDate) { this.publishDate = publishDate; }
     }
-    
-    @Getter
-    @Setter
-    @NoArgsConstructor
-    @AllArgsConstructor
+
+    // 📌 Book 수정 요청용 DTO
     public static class BookUpdateRequest {
-        @Positive(message = "가격은 양수여야 합니다.")
-        private Integer price;
-        
-        // 확장 가능성을 위해 추가 필드들을 옵셔널하게 포함할 수 있음
         private String title;
         private String author;
+        private Integer price;
         private LocalDate publishDate;
+
+        public BookUpdateRequest() {}
+
+        // Getter
+        public String getTitle() { return title; }
+        public String getAuthor() { return author; }
+        public Integer getPrice() { return price; }
+        public LocalDate getPublishDate() { return publishDate; }
+
+        // Setter
+        public void setTitle(String title) { this.title = title; }
+        public void setAuthor(String author) { this.author = author; }
+        public void setPrice(Integer price) { this.price = price; }
+        public void setPublishDate(LocalDate publishDate) { this.publishDate = publishDate; }
     }
-    
-    @Getter
-    @Setter
-    @NoArgsConstructor
-    @AllArgsConstructor
+
+    // 📌 Book 응답용 DTO
     public static class BookResponse {
         private Long id;
         private String title;
         private String author;
-        private String isbn;
         private Integer price;
         private LocalDate publishDate;
 
-        //Book => BookResponse
-        public static BookResponse from(Book book) {
-            return new BookResponse(
-                book.getId(),
-                book.getTitle(),
-                book.getAuthor(),
-                book.getIsbn(),
-                book.getPrice(),
-                book.getPublishDate()
-            );
+        // 생성자
+        public BookResponse(Book book) {
+            this.id = book.getId();
+            this.title = book.getTitle();
+            this.author = book.getAuthor();
+            this.price = book.getPrice();
+            this.publishDate = book.getPublishDate();
         }
+
+        // Getter
+        public Long getId() { return id; }
+        public String getTitle() { return title; }
+        public String getAuthor() { return author; }
+        public Integer getPrice() { return price; }
+        public LocalDate getPublishDate() { return publishDate; }
     }
 }

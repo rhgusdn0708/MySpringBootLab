@@ -30,4 +30,11 @@ public class Book {
     @Column(nullable = false)
     private LocalDate publishDate;
 
+    public Book(String title, String author, Integer price, LocalDate publishDate) {
+        this.title = title;
+        this.author = author;
+        this.price = price;
+        this.publishDate = publishDate;
+    }
+
 }
