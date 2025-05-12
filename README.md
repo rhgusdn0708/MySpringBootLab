@@ -1,4 +1,4 @@
-### [실습2-3] Spring Boot와 JPA 활용
+### [실습2-4] Spring Boot와 JPA 활용
 * Entity, Repository,RepositoryTest
 * Book과 BookDetail 1:1 연관관계
      * FetchType.LAZY vs FetchType.EAGER

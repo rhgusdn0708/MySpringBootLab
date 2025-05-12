@@ -1,18 +1,22 @@
 package com.rookies3.myspringbootlab.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Past;
+import jakarta.validation.constraints.PositiveOrZero;
 import lombok.*;
 
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "books")
-@Getter @Setter
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Book {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "book_id")
     private Long id;
 
     @Column(nullable = false)
@@ -21,20 +25,15 @@ public class Book {
     @Column(nullable = false)
     private String author;
 
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false, unique = true)
     private String isbn;
 
-    @Column(nullable = false)
+    @PositiveOrZero
     private Integer price;
 
-    @Column(nullable = false)
+    @Past
     private LocalDate publishDate;
 
-    public Book(String title, String author, Integer price, LocalDate publishDate) {
-        this.title = title;
-        this.author = author;
-        this.price = price;
-        this.publishDate = publishDate;
-    }
-
+    @OneToOne(mappedBy = "book", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private BookDetail bookDetail;
 }
