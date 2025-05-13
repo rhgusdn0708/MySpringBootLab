@@ -1,5 +1,6 @@
-package com.rookies3.myspringbootlab.controller;
+package com.rookies3.myspringbootlab.controller.dto;
 
+import com.rookies3.myspringbootlab.entity.Book;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Past;
@@ -35,11 +36,11 @@ public class BookDTO {
 
         @Past(message = "Publish date must be in the past")
         private LocalDate publishDate;
-        
+
         @Valid
         private BookDetailDTO detailRequest;
     }
-    
+
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
@@ -69,16 +70,16 @@ public class BookDTO {
         public static Response fromEntity(Book book) {
             BookDetailResponse detailResponse = book.getBookDetail() != null
                     ? BookDetailResponse.builder()
-                        .id(book.getBookDetail().getId())
-                        .description(book.getBookDetail().getDescription())
-                        .language(book.getBookDetail().getLanguage())
-                        .pageCount(book.getBookDetail().getPageCount())
-                        .publisher(book.getBookDetail().getPublisher())
-                        .coverImageUrl(book.getBookDetail().getCoverImageUrl())
-                        .edition(book.getBookDetail().getEdition())
-                        .build()
+                    .id(book.getBookDetail().getId())
+                    .description(book.getBookDetail().getDescription())
+                    .language(book.getBookDetail().getLanguage())
+                    .pageCount(book.getBookDetail().getPageCount())
+                    .publisher(book.getBookDetail().getPublisher())
+                    .coverImageUrl(book.getBookDetail().getCoverImageUrl())
+                    .edition(book.getBookDetail().getEdition())
+                    .build()
                     : null;
-            
+
             return Response.builder()
                     .id(book.getId())
                     .title(book.getTitle())
@@ -90,7 +91,7 @@ public class BookDTO {
                     .build();
         }
     }
-    
+
     @Data
     @NoArgsConstructor
     @AllArgsConstructor

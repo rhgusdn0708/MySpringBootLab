@@ -1,3 +1,9 @@
+package com.rookies3.myspringbootlab.repository;
+
+import com.rookies3.myspringbootlab.entity.Book;
+import com.rookies3.myspringbootlab.entity.BookDetail;
+import com.rookies3.myspringbootlab.repository.BookDetailRepository;
+import com.rookies3.myspringbootlab.repository.BookRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
