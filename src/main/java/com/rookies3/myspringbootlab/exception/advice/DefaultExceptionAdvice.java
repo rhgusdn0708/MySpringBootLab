@@ -71,6 +71,9 @@ public class DefaultExceptionAdvice {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ValidationErrorResponse> handleValidationExceptions(
             MethodArgumentNotValidException ex) {
+
+        log.error(ex.getMessage(), ex);
+
         Map<String, String> errors = new HashMap<>();
         ex.getBindingResult()
                 .getAllErrors()
@@ -82,11 +85,11 @@ public class DefaultExceptionAdvice {
 
         ValidationErrorResponse response =
                 new ValidationErrorResponse(
-                400,
-                "입력항목 검증 오류",
-                LocalDateTime.now(),
-                errors
-        );
+                        400,
+                        "입력항목 검증 오류",
+                        LocalDateTime.now(),
+                        errors
+                );
         //badRequest() 400
         return ResponseEntity.badRequest().body(response);
     }
