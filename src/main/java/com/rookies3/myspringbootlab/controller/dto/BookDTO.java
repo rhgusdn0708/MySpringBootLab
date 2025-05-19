@@ -3,7 +3,10 @@ package com.rookies3.myspringbootlab.controller.dto;
 import com.rookies3.myspringbootlab.entity.Book;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
@@ -14,6 +17,13 @@ public class BookDTO {
     @AllArgsConstructor
     @Builder
     public static class Request {
+
+        private BookDetailDTO detailRequest;
+
+        public BookDetailDTO getDetail() {
+            return this.detailRequest;
+        }
+
         @NotBlank(message = "Book title is required")
         private String title;
 
@@ -31,8 +41,11 @@ public class BookDTO {
         @Past(message = "Publish date must be in the past")
         private LocalDate publishDate;
 
-        @Valid
-        private BookDetailDTO detail;
+
+        @NotNull(message = "출판사 ID는 필수입니다.")
+        private Long publisherId;
+
+
     }
 
     @Data
@@ -60,6 +73,8 @@ public class BookDTO {
         private Integer price;
         private LocalDate publishDate;
         private BookDetailResponse detail;
+        private Long publisherId;
+
 
         public static Response fromEntity(Book book) {
             BookDetailResponse detailResponse = book.getBookDetail() != null
@@ -68,7 +83,7 @@ public class BookDTO {
                     .description(book.getBookDetail().getDescription())
                     .language(book.getBookDetail().getLanguage())
                     .pageCount(book.getBookDetail().getPageCount())
-                    .publisher(book.getBookDetail().getPublisher())
+                    .publisher(book.getBookDetail().getPublisher()) //
                     .coverImageUrl(book.getBookDetail().getCoverImageUrl())
                     .edition(book.getBookDetail().getEdition())
                     .build()
@@ -81,6 +96,7 @@ public class BookDTO {
                     .isbn(book.getIsbn())
                     .price(book.getPrice())
                     .publishDate(book.getPublishDate())
+                    .publisherId(book.getPublisher() != null ? book.getPublisher().getId() : null)
                     .detail(detailResponse)
                     .build();
         }
@@ -95,8 +111,12 @@ public class BookDTO {
         private String description;
         private String language;
         private Integer pageCount;
-        private String publisher;
+        private String publisher; // ✅ "published" 오타 수정 -> "publisher"
         private String coverImageUrl;
         private String edition;
     }
+
+
+
+
 }

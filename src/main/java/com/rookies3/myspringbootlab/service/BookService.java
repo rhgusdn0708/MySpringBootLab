@@ -9,12 +9,10 @@ import com.rookies3.myspringbootlab.repository.BookDetailRepository;
 import com.rookies3.myspringbootlab.repository.BookRepository;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -63,6 +61,8 @@ public class BookService {
         if (bookRepository.existsByIsbn(request.getIsbn())) {
             throw new BusinessException(ErrorCode.ISBN_DUPLICATE, request.getIsbn());
         }
+
+
 
         // Create book entity
         Book book = Book.builder()

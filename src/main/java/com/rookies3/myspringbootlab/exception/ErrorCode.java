@@ -20,7 +20,11 @@ public enum ErrorCode {
     PHONE_NUMBER_DUPLICATE("Student detail already exists with phone number: %s", HttpStatus.CONFLICT),
 
     // Book specific errors - 도서 관련 특수한 경우
-    ISBN_DUPLICATE("Book already exists with ISBN: %s", HttpStatus.CONFLICT);
+    ISBN_DUPLICATE("Book already exists with ISBN: %s", HttpStatus.CONFLICT),
+
+    // 에러 코드 추가
+    PUBLISHER_NOT_FOUND("출판사를 찾을 수 없습니다.", HttpStatus.NOT_FOUND),
+    PUBLISHER_HAS_BOOKS("출판사에 등록된 도서가 있어 삭제할 수 없습니다.", HttpStatus.BAD_REQUEST);
 
     private final String messageTemplate;
     private final HttpStatus httpStatus;
